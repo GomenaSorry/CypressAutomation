@@ -1,4 +1,4 @@
-describe('My Second Test Suite', function()
+describe('Simple End-to-End Test Suite', function()
 {
     it('Add to Cart Test', function()
     {
