@@ -7,4 +7,5 @@ module.exports = defineConfig({
     },
     specPattern: 'cypress/integration/examples/*.js'
   },
+  defaultCommandTimeout: 7000
 });

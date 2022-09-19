@@ -1,5 +1,6 @@
 import HomePage from '../pageObjects/HomePage'
 import ProductPage from '../pageObjects/ProductPage'
+import ShopPage from '../pageObjects/ShopPage'
 
 
 describe('Page Object Model Test Suite', function()
@@ -81,5 +82,25 @@ describe('Page Object Model Test Suite', function()
             cy.selectProduct(productName)
         })
         productPage.getCheckOutButton().click()
+    })
+
+    it('Add different products to cart, checkout, and purchase Test Case', function()
+    {
+        homePage.getShopButton().click()
+        const productPage = new ProductPage()
+        const shopPage = new ShopPage()
+        
+        var testData = this.data.productName
+        testData.forEach(productName => 
+        {
+            cy.selectProduct(productName)
+        })
+        productPage.getCheckOutButton().click()
+
+        shopPage.getCheckOutButton().click()
+
+        
+
+
     })
 })
