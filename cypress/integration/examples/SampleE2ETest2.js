@@ -16,7 +16,6 @@ describe('Page Object Model Test Suite', function()
         {
             this.data = data
         })
-
         // visit the website before every test case
         cy.visit('https://rahulshettyacademy.com/angularpractice/')
     })
@@ -33,26 +32,32 @@ describe('Page Object Model Test Suite', function()
             cy.selectProduct(productName)
         })
         productPage.getCheckOutButton().click()
-
+        // add product prices and get the total, initialize sum var
         var sum = 0
         shopPage.getProductPrice().each(($el, index, $list) => 
         {
+            // get text
             const priceText = $el.text()
+            // split string to split money sign to numbers to 2 different array elements
             var price = priceText.split(" ")
+            // element[1] is number part, trim() to remove whitespaces, convert to int using parseInt
             price = parseInt(price[1].trim())
+            // add prices and store in sum var
             sum += price
         })
+        // get total amount value
         shopPage.getTotalAmount().then(function(total)
         {
+            //get text
             const totalText = total.text()
+            // split string to split money sign to numbers to 2 different array elements
             var totalAmount = totalText.split(" ")
+            // element[1] is number part, trim() to remove whitespaces, convert to int using parseInt
             totalAmount = parseInt(totalAmount[1].trim())
+            // assert to check if totalAmount is equal to sum
             expect(totalAmount).eq(sum)
         })
-        
-
     })
-
 
     it('Add different products to cart, checkout, and purchase Test Case', function()
     {
@@ -66,15 +71,13 @@ describe('Page Object Model Test Suite', function()
             cy.selectProduct(productName)
         })
         productPage.getCheckOutButton().click()
-
         shopPage.getCheckOutButton().click()
         shopPage.getCountryTextBox().type('Indonesia')
         shopPage.getCountryExactMatch().click()
-
-        // force click the button as it was blocked by another element
+        // force click the button as it was blocked by another element, remove force: true to see error
         shopPage.getTCCheckBox().click({force: true})
         shopPage.getPurchaseButton().click()
-        // shopPage.getShopMessage().should('have.text', "Success! Thank you! Your order will be delivered in next few weeks :-).")
+        // shopPage.getShopMessage().should('have.text', "Success! Thank you! Your order will be delivered in next few weeks :-).") will not work due to additional hidden chars
         shopPage.getShopMessage().then(function(element)
         {
             const actualText = element.text()
