@@ -1,5 +1,15 @@
 class ShopPage
 {
+    getProductPrice()
+    {
+        return cy.get('tr td:nth-child(4) strong')
+    }
+
+    getTotalAmount()
+    {
+        return cy.get('h3 > strong')
+    }
+
     getCheckOutButton()
     {
         return cy.get('button.btn-success')
@@ -22,22 +32,22 @@ class ShopPage
 
     getCountryExactMatch()
     {
-        return cy.get('.suggestions > ul > li > a')
-    }
-
-    getEllipsis()
-    {
-        return cy.get('.lds-ellipsis')
+        return cy.contains('Indonesia')
     }
 
     getTCCheckBox()
     {
-        return cy.get('.checkbox2')
+        return cy.get('#checkbox2')
     }
 
     getPurchaseButton()
     {
-        return cy.get('input.btn-success')
+        return cy.get('input[type="submit"]')
+    }
+
+    getShopMessage()
+    {
+        return cy.get('.alert')
     }
     
 
