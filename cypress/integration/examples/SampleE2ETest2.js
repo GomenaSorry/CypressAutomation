@@ -21,6 +21,37 @@ describe('Page Object Model Test Suite', function()
         cy.visit('https://rahulshettyacademy.com/angularpractice/')
     })
 
+    it('Add different products to cart, checkout, check total amount Test Case', function()
+    {
+        homePage.getShopButton().click()
+        const productPage = new ProductPage()
+        const shopPage = new ShopPage()
+        
+        var testData = this.data.productName
+        testData.forEach(productName => 
+        {
+            cy.selectProduct(productName)
+        })
+        productPage.getCheckOutButton().click()
+
+        var sum = 0
+        shopPage.getProductPrice().each(($el, index, $list) => 
+        {
+            const priceText = $el.text()
+            var price = priceText.split(" ")
+            price = parseInt(price[1].trim())
+            sum += price
+        })
+        shopPage.getTotalAmount().then(function(total)
+        {
+            const totalText = total.text()
+            var totalAmount = totalText.split(" ")
+            totalAmount = parseInt(totalAmount[1].trim())
+            expect(totalAmount).eq(sum)
+        })
+        
+
+    })
 
 
     it('Add different products to cart, checkout, and purchase Test Case', function()
@@ -40,8 +71,14 @@ describe('Page Object Model Test Suite', function()
         shopPage.getCountryTextBox().type('Indonesia')
         shopPage.getCountryExactMatch().click()
 
-        
-
-
+        // force click the button as it was blocked by another element
+        shopPage.getTCCheckBox().click({force: true})
+        shopPage.getPurchaseButton().click()
+        // shopPage.getShopMessage().should('have.text', "Success! Thank you! Your order will be delivered in next few weeks :-).")
+        shopPage.getShopMessage().then(function(element)
+        {
+            const actualText = element.text()
+            expect(actualText.includes("Success")).to.be.true
+        })
     })
 })
