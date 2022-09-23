@@ -4,12 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/cypress run",
+    "headTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome",
+    "recordedTest": "npm run test -- --record --key 5a06e556-9d7a-43a8-bb8f-eb663d10a031 --reporter mochawesome"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@cypress/webpack-preprocessor": "latest",
     "cypress": "^10.7.0",
     "cypress-iframe": "^1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "mochawesome": "^7.1.3"
   }
 }
