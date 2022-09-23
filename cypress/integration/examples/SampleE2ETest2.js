@@ -1,23 +1,24 @@
-import HomePage from '../pageObjects/HomePage'
-import ProductPage from '../pageObjects/ProductPage'
-import ShopPage from '../pageObjects/ShopPage'
+import HomePage from '../../support/pageObjects/HomePage'
+import ProductPage from '../../support/pageObjects/ProductPage'
+import ShopPage from '../../support/pageObjects/ShopPage'
 
 
-describe('Page Object Model Test Suite', function()
+describe('Sample E2E using Page Object Model Test Suite', function()
 {
-
     // create HomePage object
     const homePage = new HomePage()
 
+    // added to beforeEach hook as it will only be usable on a single test case if used in a before hook
     beforeEach(function()
     {
-        // added to beforeEach hook as it will only be usable on a single test case if used in a before hook
         cy.fixture('example').then(function(data)
         {
             this.data = data
         })
         // visit the website before every test case
-        cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        // replaced by env key
+        // cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        cy.visit(Cypress.env('url')+"/angularpractice/")
     })
 
     it('Add different products to cart, checkout, check total amount Test Case', function()
@@ -44,6 +45,10 @@ describe('Page Object Model Test Suite', function()
             price = parseInt(price[1].trim())
             // add prices and store in sum var
             sum += price
+        }).then(function()
+        {
+            // log the sum
+            cy.log(sum)
         })
         // get total amount value
         shopPage.getTotalAmount().then(function(total)
@@ -55,7 +60,7 @@ describe('Page Object Model Test Suite', function()
             // element[1] is number part, trim() to remove whitespaces, convert to int using parseInt
             totalAmount = parseInt(totalAmount[1].trim())
             // assert to check if totalAmount is equal to sum
-            expect(totalAmount).eq(sum)
+            expect(totalAmount).to.equal(sum)
         })
     })
 
@@ -64,7 +69,6 @@ describe('Page Object Model Test Suite', function()
         homePage.getShopButton().click()
         const productPage = new ProductPage()
         const shopPage = new ShopPage()
-        
         var testData = this.data.productName
         testData.forEach(productName => 
         {

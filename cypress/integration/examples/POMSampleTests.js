@@ -1,6 +1,6 @@
-import HomePage from '../pageObjects/HomePage'
-import ProductPage from '../pageObjects/ProductPage'
-import ShopPage from '../pageObjects/ShopPage'
+import HomePage from '../../support/pageObjects/HomePage'
+import ProductPage from '../../support/pageObjects/ProductPage'
+import ShopPage from '../../support/pageObjects/ShopPage'
 
 
 describe('Page Object Model Test Suite', function()
