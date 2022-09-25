@@ -6,11 +6,19 @@ import ShopPage from '../../../../support/pageObjects/ShopPage'
 const homePage = new HomePage()
 const productPage = new ProductPage()
 const shopPage = new ShopPage()
+// global declaration for name and gender variables for test data
+let name
+let gender
 
-Given('I open the ECommerce page', () =>
+Given('I open the ECommerce Shop page', () =>
 {
-    cy.visit(Cypress.env('url')+"/angularpractice/")
+    cy.visit(Cypress.env('url')+"/angularpractice")
     homePage.getShopButton().click()
+})
+
+Given('I open the Ecommerce Form page', () =>
+{
+    cy.visit(Cypress.env('url')+"/angularpractice")
 })
 
 When('I add items to cart', function()
@@ -67,6 +75,16 @@ When('I accept the Terms and Conditions', () =>
     shopPage.getTCCheckBox().click({force: true})
 })
 
+When('I fill out the form details', function(dataTable) 
+{
+    // using data tables
+    // name = dataTable.rawTable[1][0], gender = dataTable.rawTable[1][1]
+    name = dataTable.rawTable[1][0]
+    gender = dataTable.rawTable[1][1]
+    homePage.getNameTextBox().type(name)
+    homePage.getGenderDropDown().select(gender)
+})
+
 Then('verify the purchase is successful', () => 
 {
     shopPage.getPurchaseButton().click()
@@ -75,4 +93,16 @@ Then('verify the purchase is successful', () =>
         const actualText = element.text()
         expect(actualText.includes("Success")).to.be.true
     })
+})
+
+Then('validate the form details', function(dataTable) 
+{
+    homePage.getTwoWayNameBindingBox().should('have.value', name)
+    homePage.getNameTextBox().should('have.attr', 'minlength', 2)
+    homePage.getEntrepreneurRadioButton().should('be.disabled')
+})
+
+Then('open the Shop page', () => 
+{
+    homePage.getShopButton().click()
 })
