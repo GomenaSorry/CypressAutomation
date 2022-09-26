@@ -38,13 +38,15 @@ module.exports = defineConfig({
   projectId: 'dqy8am',
   e2e: {
     setupNodeEvents,
-    // specPattern: 'cypress/integration/examples/*.js'
-    specPattern: 'cypress/integration/examples/BDD/*.feature'
+    // non-BDD tests
+    specPattern: 'cypress/integration/examples/*.js'
+    // BDD tests
+    // specPattern: 'cypress/integration/examples/**/*.{feature, features}'
   },
   env: {
-    url: 'https://rahulshettyacademy.com/'
+    url: 'https://rahulshettyacademy.com'
   },
-  reporter: 'mochawesome',
+  // reporter: 'mochawesome',
   defaultCommandTimeout: 10000,
   pageLoadTimeout: 30000
 });

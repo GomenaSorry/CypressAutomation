@@ -5,12 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/cypress run",
+    "smokeTest" : "npx cypress run --env tags=\"@Smoke\" --headed --browser chrome",
     "headTest": "npm run test -- --headed",
     "chromeTest": "npm run test -- --browser chrome",
-    "recordedTest": "npm run test -- --record --key 5a06e556-9d7a-43a8-bb8f-eb663d10a031 --reporter mochawesome"
+    "recordedTest": "npm run test -- --record --key 5a06e556-9d7a-43a8-bb8f-eb663d10a031 --reporter mochawesome",
+    "cypress": "./node_modules/.bin/cypress open"
+
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true
+    "nonGlobalStepDefinitions": true,
+    "filterSpecs": true,
+    "omitFiltered": true,
+    "html": {
+      "enabled": true
+    }
+    
   },
   "author": "",
   "license": "ISC",
