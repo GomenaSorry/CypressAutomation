@@ -9,7 +9,9 @@
     "headTest": "npm run test -- --headed",
     "chromeTest": "npm run test -- --browser chrome",
     "recordedTest": "npm run test -- --record --key 5a06e556-9d7a-43a8-bb8f-eb663d10a031 --reporter mochawesome",
-    "cypress": "./node_modules/.bin/cypress open"
+    "cypress": "./node_modules/.bin/cypress open",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,

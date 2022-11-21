@@ -41,15 +41,17 @@ module.exports = defineConfig({
     // uncomment for setupNodeEvents for BDD tests
     // setupNodeEvents,
     // non-BDD tests
-    specPattern: 'cypress/integration/examples/*.js'
+    // specPattern: 'cypress/integration/examples/*.js'
+    specPattern: 'cypress/integration/bankDemo/*.js'
     // BDD tests
     // specPattern: 'cypress/integration/examples/**/*.{feature, features}'
   },
   env: {
-    url: 'https://rahulshettyacademy.com'
+    url: 'https://rahulshettyacademy.com',
+    demoUrl: 'https://www.demo.bnz.co.nz/client'
   },
   // reporter: 'mochawesome',
   defaultCommandTimeout: 10000,
-  pageLoadTimeout: 30000,
+  pageLoadTimeout: 60000,
   downloadsFolder: 'cypress/downloads'
 });
