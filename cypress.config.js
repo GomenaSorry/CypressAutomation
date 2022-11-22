@@ -37,19 +37,26 @@ const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 
 module.exports = defineConfig({
   projectId: 'dqy8am',
+  
   e2e: {
     // uncomment for setupNodeEvents for BDD tests
     // setupNodeEvents,
     // non-BDD tests
-    specPattern: 'cypress/integration/examples/*.js'
+    // specPattern: 'cypress/integration/examples/*.js'
     // BDD tests
     // specPattern: 'cypress/integration/examples/**/*.{feature, features}'
+    // amaysimDemo
+    specPattern: 'cypress/integration/amaysimDemo/*.js',
+    chromeWebSecurity: false,
+      experimentalSessionAndOrigin: true
   },
   env: {
-    url: 'https://rahulshettyacademy.com'
+    url: 'https://www.amaysim.com.au/'
   },
   // reporter: 'mochawesome',
-  defaultCommandTimeout: 10000,
-  pageLoadTimeout: 30000,
+  defaultCommandTimeout: 30000,
+  pageLoadTimeout: 60000,
+  requestTimeout: 60000,
   downloadsFolder: 'cypress/downloads'
+
 });
